@@ -30,4 +30,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  
+}
+
+.weekLinkClass {
+  @apply underline hover:text-cyan-300;
 }
