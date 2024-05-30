@@ -10,7 +10,7 @@ export default function NewItem() {
  
     const submitFun = (e) => {
         e.preventDefault();
-        console.log("Name: {name}, Quantity: {quantity}, Category: {category}");
+        console.log(`Added item: ${name} \nQuantity: ${quantity} \nCategory: ${category}`);
         alert(`Added item: ${name} \nQuantity: ${quantity} \nCategory: ${category}`);
         setName("");
         setQuantity(1);
