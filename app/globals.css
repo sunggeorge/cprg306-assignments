@@ -36,3 +36,11 @@ body {
 .weekLinkClass {
   @apply underline hover:text-cyan-300;
 }
+
+.week-5-active {
+  @apply bg-orange-500 p-1 m-2 w-28;
+}
+
+.week-5-inactive {
+  @apply bg-orange-700 p-1 m-2 w-28;
+}

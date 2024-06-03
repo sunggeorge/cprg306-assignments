@@ -2,9 +2,9 @@ import ItemList from "./item-list.js";
 
 export default function Page() {
   return (
-    <main className="bg-black">
-        <div className="bg-slate-950">
-            <h1 className="font-bold text-3xl m-2">Shopping List</h1>
+    <main className="bg-slate-950">
+        <div className="m-4">
+            <h2 className="text-3xl font-bold m-2">Shopping List</h2>
             <ItemList />
         </div>
     </main>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+
 export default function Item({name, quantity, category}){
     return(
         <li className="p-2 m-4 bg-slate-900 text-yellow-400 max-w-sm">
