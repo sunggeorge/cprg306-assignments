@@ -23,7 +23,7 @@ export default function ItemList({items}) {
   }
 
   return (
-    <div>
+    <div className="mt-8">
     <label htmlFor="sort">Sort by:</label>
     <button name="name"
       className= {sortBy == 'name' ? 'week-5-active' : 'week-5-inactive'}

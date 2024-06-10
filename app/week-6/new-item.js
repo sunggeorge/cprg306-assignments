@@ -28,7 +28,7 @@ export default function NewItem({addItem}) {
     };
 
     return (
-            <form className="p-2 m-4 bg-slate-900 text-black max-w-sm w-full"
+            <form className="text-black"
                 onSubmit={submitFun}>
                 <div className="mb-2">
                     <input 

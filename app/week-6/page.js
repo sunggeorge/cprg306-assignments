@@ -14,9 +14,10 @@ export default function Page() {
 
   return (
 
-    <main className="bg-slate-950">
-        <div className="m-4">
-            <h2 className="text-3xl font-bold m-2">Shopping List</h2>
+    <main className="bg-slate-950 p-2 m-2">
+        <div className="max-w-sm w-full">
+            <h2 className="text-3xl font-bold mb-4">Shopping List</h2>
+            <h3 className="text-xl font-bold">Add New Item</h3>
             <NewItem addItem={handleAddItem} />
             <ItemList items={itemList} />
         </div>
