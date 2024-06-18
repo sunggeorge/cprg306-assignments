@@ -12,7 +12,6 @@ export default function MealIdeas({ingredient}) {
         try {
           const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
           const data = await response.json();
-          console.log(data.meals);
           return data;
         } catch (error) {
           console.error("Error:", error);
@@ -26,10 +25,8 @@ export default function MealIdeas({ingredient}) {
 
     useEffect(() => {
         loadMealIdeas();
-        console.log(`ingredient: ${ingredient}`);
     }, [ingredient]);
 
-    // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52875
 
     async function fetchIngredient(mealID) {
         try {
@@ -46,7 +43,6 @@ export default function MealIdeas({ingredient}) {
     async function loadIngredient(idMeal) {
         // console.log(`Input idMeal: ${idMeal}`);
         const mealIngredient = await fetchIngredient(idMeal);
-        console.log(mealIngredient.meals[0]);
         mealIngredient? setMealIngredient(mealIngredient.meals[0]) : setMealIngredient([]);
     }
 
@@ -63,18 +59,15 @@ export default function MealIdeas({ingredient}) {
             ingredients.push(`${ingredient} ${measure}`);
             
         }
-        console.log(ingredients.join('\n'));
         return ingredients.join('\n');
     }
 
-        // console.log(meals.length);
     return (
         <div className="p-2 m-4 text-yellow-400 max-w-sm">
             <h2 className="text-xl font-bold">Meal Ideas</h2>
             
             {meals != null ? (
    
-            // <p className='text-sm'>Here are some meal ideas using {ingredient}</p> 
             <ul>
                 {meals.map((meal) => {
                     return <li key={meal.idMeal} onClick={() => loadIngredient(meal.idMeal)} 

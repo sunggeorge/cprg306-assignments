@@ -5,7 +5,6 @@ export default function Item({id, name, quantity, category, onSelect}){
 
     return(
 
-        // <div onClick={handleItemClick}>
         <div onClick={onSelect}>
         <li key={id} 
             className="p-2 m-4 bg-slate-900 text-yellow-400 max-w-sm hover:bg-teal-400 cursor-pointer">
