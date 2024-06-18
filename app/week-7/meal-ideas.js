@@ -6,46 +6,99 @@ import { useState, useEffect } from "react";
 export default function MealIdeas({ingredient}) {
 
     const [meals, setMeals] = useState([]);
+    const [mealIngredient, setMealIngredient] = useState([]);
 
     async function fetchMealIdeas() {
         try {
-          response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+          const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
           const data = await response.json();
-          console.log(data);
+          console.log(data.meals);
           return data;
         } catch (error) {
           console.error("Error:", error);
         }
       }
 
-    function loadMealIdeas() {
-        setMeals(fetchMealIdeas({ingredient}));
+    async function loadMealIdeas() {
+        const mealData = await fetchMealIdeas();
+        mealData? setMeals(mealData.meals) : setMeals([]);
     }
 
     useEffect(() => {
         loadMealIdeas();
+        console.log(`ingredient: ${ingredient}`);
     }, [ingredient]);
 
-        console.log(meals.length);
+    // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52875
+
+    async function fetchIngredient(mealID) {
+        try {
+          const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`);
+          const data = await response.json();
+        //   console.log(`mealID: ${mealID}`);
+        //   console.log(data);
+          return data;
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+    async function loadIngredient(idMeal) {
+        // console.log(`Input idMeal: ${idMeal}`);
+        const mealIngredient = await fetchIngredient(idMeal);
+        console.log(mealIngredient.meals[0]);
+        mealIngredient? setMealIngredient(mealIngredient.meals[0]) : setMealIngredient([]);
+    }
+
+    function getIngredients(mealIngredient) {
+        let ingredients = [];
+        for (let i = 1; i <= 20; i++) {
+            let ingredient = mealIngredient[`strIngredient${i}`];
+            let measure = mealIngredient[`strMeasure${i}`];
+    
+            if (!ingredient || !measure) {
+                break;
+            }
+    
+            ingredients.push(`${ingredient} ${measure}`);
+            
+        }
+        console.log(ingredients.join('\n'));
+        return ingredients.join('\n');
+    }
+
+        // console.log(meals.length);
     return (
-        <div className="p-2 m-4 bg-slate-900 text-yellow-400 max-w-sm">
+        <div className="p-2 m-4 text-yellow-400 max-w-sm">
             <h2 className="text-xl font-bold">Meal Ideas</h2>
             
-            {meals === null ? (
-            <p className='text-sm'>Here are some meal ideas using {ingredient}</p> // Replace 'A' with the JSX you want to render when meals is null
-            ) : (  
-            <p className='text-sm'>No meal ideas found for {ingredient}</p> // Replace 'A' with the JSX you want to render when meals is null  
-            )}
-            
-            {(meals.length > 0) &&
-            (<ul>
+            {meals != null ? (
+   
+            // <p className='text-sm'>Here are some meal ideas using {ingredient}</p> 
+            <ul>
                 {meals.map((meal) => {
-                    return <li key={meal.idMeal} 
-                            className="text-sm">
+                    return <li key={meal.idMeal} onClick={() => loadIngredient(meal.idMeal)} 
+                            className="text-sm p-2 m-2 bg-slate-900 text-yellow-400 max-w-sm hover:bg-teal-400 cursor-pointer">
                                 {meal.strMeal}
+                                
+                                {mealIngredient != null && mealIngredient.idMeal == meal.idMeal && 
+                                (
+                                    <>
+                                        <p className='ml-3 text-xs'>Ingredients needed:</p>
+                                        {getIngredients(mealIngredient).split('\n').map((ingredient, index) => (
+                                            <p key={index} className='ml-10 text-xs'>{ingredient}</p>
+                                        ))}
+                                    </>
+                                )}
                             </li>
                 })}
-            </ul>)}
+            </ul>
+        
+        ) : (  
+            <p className='text-sm'>No meal ideas found for {ingredient}</p>   
+            )}
+            
+           
         </div>
     )
 
