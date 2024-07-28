@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation'
 
 
 const Page = () => {
-    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+    const { user, googleSignIn, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
     useEffect(() => {
         if (user) {
@@ -28,7 +28,10 @@ const Page = () => {
                     {user ? (
                         <button className="border p-2 border-yellow-500" onClick={firebaseSignOut}>Sign Out</button>
                     ) : (
-                        <button className="border p-2 border-yellow-500" onClick={gitHubSignIn}>Sign In with GitHub</button>
+                        <div>
+                            <button className="border p-2 border-yellow-500" onClick={gitHubSignIn}>Sign In with GitHub</button>
+                            <button className="border p-2 border-yellow-500" onClick={googleSignIn}>Sign In with Google</button>
+                        </div>
                     )}
                 </p>
             </div>
